@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DecodeLabs — Intern Registry</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ───────────────────────────────────────────── -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">⚡ DecodeLabs</div>
+      <span class="badge" id="dbStatus">Checking DB…</span>
+    </div>
+  </header>
+
+  <!-- ── Main ─────────────────────────────────────────────── -->
+  <main>
+
+    <!-- Add Intern Form -->
+    <section class="card" id="formSection">
+      <h2>➕ Register Intern</h2>
+      <div class="form-grid">
+        <input  id="fName"   type="text"  placeholder="Full Name *" />
+        <input  id="fEmail"  type="email" placeholder="Email *" />
+        <input  id="fRole"   type="text"  placeholder="Role (e.g. Frontend Dev)" />
+        <input  id="fSkills" type="text"  placeholder="Skills (comma-separated)" />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="handleSubmit()">Register</button>
+        <button class="btn btn-ghost"   onclick="clearForm()">Clear</button>
+      </div>
+      <p id="formMsg" class="form-msg"></p>
+    </section>
+
+    <!-- Search + List -->
+    <section class="card">
+      <div class="list-header">
+        <h2>👥 Intern Registry</h2>
+        <div class="search-box">
+          <input id="searchInput" type="text" placeholder="Search by name or role…" oninput="handleSearch()" />
+        </div>
+      </div>
+
+      <!-- Loading / Error states -->
+      <div id="loadingState" class="state-msg">
+        <div class="spinner"></div> Loading interns…
+      </div>
+      <div id="errorState" class="state-msg error" style="display:none">
+        ⚠️ <span id="errorText">Could not load data.</span>
+        <button class="btn btn-ghost small" onclick="loadInterns()">Retry</button>
+      </div>
+      <div id="emptyState" class="state-msg" style="display:none">
+        📭 No interns found.
+      </div>
+
+      <!-- Intern cards grid -->
+      <div id="internGrid" class="intern-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- ── Edit Modal ────────────────────────────────────────── -->
+  <div id="modal" class="modal-overlay" style="display:none" onclick="closeModal(event)">
+    <div class="modal-box">
+      <h3>✏️ Edit Intern</h3>
+      <input type="hidden" id="editId" />
+      <div class="form-grid">
+        <input id="editName"   type="text"  placeholder="Full Name *" />
+        <input id="editEmail"  type="email" placeholder="Email *" />
+        <input id="editRole"   type="text"  placeholder="Role" />
+        <input id="editSkills" type="text"  placeholder="Skills (comma-separated)" />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="handleUpdate()">Save Changes</button>
+        <button class="btn btn-ghost"   onclick="hideModal()">Cancel</button>
+      </div>
+      <p id="editMsg" class="form-msg"></p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
